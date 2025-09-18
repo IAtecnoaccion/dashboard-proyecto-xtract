@@ -16,7 +16,7 @@ st.set_page_config(
 
 # Título principal
 st.title("📊 Dashboard Proyecto Xtract")
-st.markdown("### Sistema de Migración de Facturas: Xtract → NetSuite")
+st.markdown("### Automatización de Carga de Facturas: Xtract → NetSuite")
 st.markdown("---")
 
 # Función para cargar datos

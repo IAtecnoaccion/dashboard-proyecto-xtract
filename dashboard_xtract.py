@@ -34,6 +34,34 @@ def load_data():
 df = load_data()
 
 if df is not None:
+    # CSS personalizado para colores de métricas
+    st.markdown("""
+    <style>
+    [data-testid="metric-container"] {
+        background-color: #f0f2f6;
+        border: 1px solid #e0e0e0;
+        padding: 5% 5% 5% 10%;
+        border-radius: 10px;
+        border-left: 0.5rem solid #9e9e9e;
+    }
+    
+    .metric-completadas {
+        background-color: #d4edda !important;
+        border-left-color: #28a745 !important;
+    }
+    
+    .metric-pendientes {
+        background-color: #fff3cd !important;
+        border-left-color: #ffc107 !important;
+    }
+    
+    .metric-errores {
+        background-color: #f8d7da !important;
+        border-left-color: #dc3545 !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+    
     # Sidebar con filtros
     st.sidebar.header("🔍 Filtros")
     
@@ -71,17 +99,23 @@ if df is not None:
     with col2:
         done_count = len(filtered_df[(filtered_df['Status'] == 'Done') | (filtered_df['Status'] == 'Ok Xtract - No pasar a Sandbox')])
         done_percentage = (done_count / total_facturas * 100) if total_facturas > 0 else 0
+        st.markdown('<div class="metric-completadas">', unsafe_allow_html=True)
         st.metric("Completadas", f"{done_count}", f"{done_percentage:.1f}%")
+        st.markdown('</div>', unsafe_allow_html=True)
     
     with col3:
         pendiente_count = len(filtered_df[filtered_df['Status'].str.contains('Pendiente', na=False)])
         pendiente_percentage = (pendiente_count / total_facturas * 100) if total_facturas > 0 else 0
+        st.markdown('<div class="metric-pendientes">', unsafe_allow_html=True)
         st.metric("Pendientes", f"{pendiente_count}", f"{pendiente_percentage:.1f}%")
+        st.markdown('</div>', unsafe_allow_html=True)
     
     with col4:
         error_count = len(filtered_df[filtered_df['Status'].str.contains('Error', na=False)])
         error_percentage = (error_count / total_facturas * 100) if total_facturas > 0 else 0
+        st.markdown('<div class="metric-errores">', unsafe_allow_html=True)
         st.metric("Con Errores", f"{error_count}", f"{error_percentage:.1f}%")
+        st.markdown('</div>', unsafe_allow_html=True)
     
     st.markdown("---")
     

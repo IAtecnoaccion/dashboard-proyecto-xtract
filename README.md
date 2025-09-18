@@ -1,6 +1,12 @@
 # Dashboard Proyecto Xtract
 
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/iatecnoaccion/dashboard-proyecto-xtract/main/dashboard_xtract.py)
+
 Dashboard interactivo para monitorear el estado del proyecto de migración de facturas desde Xtract hacia NetSuite.
+
+## 🚀 Demo en Vivo
+
+Puedes ver el dashboard en funcionamiento aquí: [Dashboard Proyecto Xtract](https://share.streamlit.io/iatecnoaccion/dashboard-proyecto-xtract/main/dashboard_xtract.py)
 
 ## 📋 Descripción
 

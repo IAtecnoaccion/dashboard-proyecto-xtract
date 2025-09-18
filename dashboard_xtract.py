@@ -203,24 +203,43 @@ if df is not None:
     
     with col1:
         st.subheader("⚡ Progreso General")
+        
+        # Métrica grande del porcentaje
         total = len(df)
         done = len(df[df['Status'] == 'Done'])
         progress = done / total if total > 0 else 0
+        progress_percentage = progress * 100
+        
+        # Mostrar métrica destacada
+        st.metric(
+            label="Progreso Completado",
+            value=f"{progress_percentage:.1f}%",
+            delta=f"{done} de {total} facturas"
+        )
         
         fig_gauge = go.Figure(go.Indicator(
             mode = "gauge+number+delta",
-            value = progress * 100,
+            value = progress_percentage,
             domain = {'x': [0, 1], 'y': [0, 1]},
-            title = {'text': "% Completado"},
-            delta = {'reference': 50},
+            title = {'text': "% Completado", 'font': {'size': 20}},
+            delta = {'reference': 50, 'font': {'size': 16}},
+            number = {'font': {'size': 48, 'color': "darkgreen"}},
             gauge = {
-                'axis': {'range': [None, 100]},
-                'bar': {'color': "darkgreen"},
+                'axis': {
+                    'range': [None, 100],
+                    'tickwidth': 1,
+                    'tickcolor': "darkblue",
+                    'tickfont': {'size': 14}
+                },
+                'bar': {'color': "darkgreen", 'thickness': 0.8},
+                'bgcolor': "white",
+                'borderwidth': 2,
+                'bordercolor': "gray",
                 'steps': [
-                    {'range': [0, 25], 'color': "lightgray"},
-                    {'range': [25, 50], 'color': "yellow"},
-                    {'range': [50, 75], 'color': "orange"},
-                    {'range': [75, 100], 'color': "green"}
+                    {'range': [0, 25], 'color': "#ffcccc"},
+                    {'range': [25, 50], 'color': "#fff3cd"},
+                    {'range': [50, 75], 'color': "#d1ecf1"},
+                    {'range': [75, 100], 'color': "#d4edda"}
                 ],
                 'threshold': {
                     'line': {'color': "red", 'width': 4},
@@ -229,7 +248,11 @@ if df is not None:
                 }
             }
         ))
-        fig_gauge.update_layout(height=300)
+        fig_gauge.update_layout(
+            height=400,
+            font={'color': "darkblue", 'family': "Arial"},
+            margin=dict(l=20, r=20, t=60, b=20)
+        )
         st.plotly_chart(fig_gauge, width='stretch')
     
     with col2:

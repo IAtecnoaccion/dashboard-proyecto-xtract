@@ -69,7 +69,7 @@ if df is not None:
         st.metric("Total Facturas", total_facturas)
     
     with col2:
-        done_count = len(filtered_df[filtered_df['Status'] == 'Done'])
+        done_count = len(filtered_df[(filtered_df['Status'] == 'Done') | (filtered_df['Status'] == 'Ok Xtract - No pasar a Sandbox')])
         done_percentage = (done_count / total_facturas * 100) if total_facturas > 0 else 0
         st.metric("Completadas", f"{done_count}", f"{done_percentage:.1f}%")
     
@@ -120,7 +120,7 @@ if df is not None:
         
         # Categorizar estados
         def categorize_status(status):
-            if status == 'Done':
+            if status == 'Done' or status == 'Ok Xtract - No pasar a Sandbox':
                 return 'Completado'
             elif 'Error' in status:
                 return 'Error'
@@ -206,7 +206,7 @@ if df is not None:
         
         # Métrica grande del porcentaje
         total = len(df)
-        done = len(df[df['Status'] == 'Done'])
+        done = len(df[(df['Status'] == 'Done') | (df['Status'] == 'Ok Xtract - No pasar a Sandbox')])
         progress = done / total if total > 0 else 0
         progress_percentage = progress * 100
         
@@ -258,13 +258,12 @@ if df is not None:
     with col2:
         st.subheader("🔢 Resumen Numérico")
         summary_data = {
-            'Categoría': ['Total Facturas', 'Completadas', 'En Proceso/Pendientes', 'Con Errores', 'OK Xtract (No Sandbox)'],
+            'Categoría': ['Total Facturas', 'Completadas', 'En Proceso/Pendientes', 'Con Errores'],
             'Cantidad': [
                 len(df),
-                len(df[df['Status'] == 'Done']),
+                len(df[(df['Status'] == 'Done') | (df['Status'] == 'Ok Xtract - No pasar a Sandbox')]),
                 len(df[df['Status'].str.contains('Proceso|Pendiente', na=False)]),
-                len(df[df['Status'].str.contains('Error', na=False)]),
-                len(df[df['Status'] == 'Ok Xtract - No pasar a Sandbox'])
+                len(df[df['Status'].str.contains('Error', na=False)])
             ]
         }
         summary_df = pd.DataFrame(summary_data)

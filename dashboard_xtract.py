@@ -132,10 +132,12 @@ if df is not None:
             'En Proceso': '#ffc107',
             'Error': '#dc3545',
             'Error NS': '#fd7e14',
-            'Error Xtract': '#e83e8c',
+            'Error xtract': '#e83e8c',
             'Ok Xtract - No pasar a Sandbox': '#17a2b8',
             'Pendiente análisis Tekiio': '#6f42c1',
-            'Pendiente Tekiio': '#6c757d'
+            'Pendiente Tekiio': '#6c757d',
+            'Pendiente Analisis Xtract': '#9c27b0',
+            'Validar TECNO en NetSuite': '#795548'
         }
         
         fig_pie = px.pie(
@@ -160,7 +162,7 @@ if df is not None:
                 return 'Error'
             elif 'Pendiente' in status:
                 return 'Pendiente'
-            elif 'En Proceso' in status:
+            elif 'En Proceso' in status or status == 'Validar TECNO en NetSuite':
                 return 'En Proceso'
             else:
                 return 'Otros'
@@ -205,10 +207,12 @@ if df is not None:
                 'En Proceso': '🔄 Se debe analizar la factura y parametrizar en Xtract',
                 'Error': '❌ Hay algún error en Xtract o en NetSuite',
                 'Error NS': '🔴 La factura se cargó bien en Xtract, pero hay un error de parametrización en NetSuite',
-                'Error Xtract': '🟠 Hay un error en la lectura de la factura en Xtract',
+                'Error xtract': '🟠 Hay un error en la lectura de la factura en Xtract',
                 'Ok Xtract - No pasar a Sandbox': '🟢 La factura se cargó bien en Xtract, no amerita probarla en NetSuite',
                 'Pendiente análisis Tekiio': '🔍 La consultora de NetSuite debe analizar el caso',
-                'Pendiente Tekiio': '⏳ Está pendiente de migrar a NetSuite'
+                'Pendiente Tekiio': '⏳ Está pendiente de migrar a NetSuite',
+                'Pendiente Analisis Xtract': '🔍 Pendiente de análisis en Xtract para parametrización',
+                'Validar TECNO en NetSuite': '🔎 Validación pendiente del equipo TECNO en NetSuite'
             }
             
             if status in descriptions:
